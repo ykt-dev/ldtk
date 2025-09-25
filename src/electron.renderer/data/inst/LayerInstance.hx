@@ -724,6 +724,45 @@ class LayerInstance {
 		_project.unregisterAllReverseIidRefsFor(ei);
 	}
 
+	/** Reorder an entity instance within this layer. Rendering order follows array order
+		(earlier = bottom, later = top). Newly created instances are pushed at the end,
+		so moving "up" means increasing index and moving "down" means decreasing index. **/
+	public function moveEntityInstanceUp(ei:EntityInstance) : Bool {
+		requireType(Entities);
+		var idx = entityInstances.indexOf(ei);
+		if( idx<0 || idx>=entityInstances.length-1 ) return false;
+		entityInstances[idx] = entityInstances[idx+1];
+		entityInstances[idx+1] = ei;
+		return true;
+	}
+
+	public function moveEntityInstanceDown(ei:EntityInstance) : Bool {
+		requireType(Entities);
+		var idx = entityInstances.indexOf(ei);
+		if( idx<=0 ) return false;
+		entityInstances[idx] = entityInstances[idx-1];
+		entityInstances[idx-1] = ei;
+		return true;
+	}
+
+	public function moveEntityInstanceToTop(ei:EntityInstance) : Bool {
+		requireType(Entities);
+		var idx = entityInstances.indexOf(ei);
+		if( idx<0 || idx==entityInstances.length-1 ) return false;
+		entityInstances.splice(idx,1);
+		entityInstances.push(ei);
+		return true;
+	}
+
+	public function moveEntityInstanceToBottom(ei:EntityInstance) : Bool {
+		requireType(Entities);
+		var idx = entityInstances.indexOf(ei);
+		if( idx<=0 ) return false;
+		entityInstances.splice(idx,1);
+		entityInstances.unshift(ei);
+		return true;
+	}
+
 
 	inline function asyncPaint(cx:Int, cy:Int, col:Col) {
 		if( isValid(cx,cy) && Editor.exists() )

@@ -202,6 +202,22 @@ class EntityInstanceEditor extends dn.Process {
 			new ui.modal.panel.EditEntityDefs(ei.def);
 		});
 
+		// Reorder buttons
+		var li = ei._li;
+		function afterReorder(changed:Bool) {
+			if( changed ) {
+				// Mark change for undo/redo and refresh
+				editor.curLevelTimeline.markEntityChange(ei);
+				editor.curLevelTimeline.saveLayerState(li);
+				editor.ge.emitAtTheEndOfFrame( EntityInstanceChanged(ei) );
+			}
+			updateInstancePropsForm();
+		}
+		jPropsForm.find(".reorderButtons .moveUp").click( function(ev){ ev.preventDefault(); afterReorder(li.moveEntityInstanceUp(ei)); });
+		jPropsForm.find(".reorderButtons .moveDown").click( function(ev){ ev.preventDefault(); afterReorder(li.moveEntityInstanceDown(ei)); });
+		jPropsForm.find(".reorderButtons .moveTop").click( function(ev){ ev.preventDefault(); afterReorder(li.moveEntityInstanceToTop(ei)); });
+		jPropsForm.find(".reorderButtons .moveBottom").click( function(ev){ ev.preventDefault(); afterReorder(li.moveEntityInstanceToBottom(ei)); });
+
 		var jExtraInfos = jPropsForm.find(".form.extraInfos");
 
 		// IID
