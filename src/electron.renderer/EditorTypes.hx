@@ -259,6 +259,7 @@ enum AppCommand {
 	@k("ctrl shift s") @input C_SaveProjectAs;
 	@k("ctrl W") @input C_CloseProject;
 	C_RenameProject;
+	@k("ctrl shift r") C_ReloadProject;
 
 	@k("escape") @input C_Back;
 	@k("f12") @input C_AppSettings;

@@ -175,6 +175,17 @@ class Editor extends Page {
 			App.ME.executeAppCommand(C_OpenProjectPanel);
 		});
 
+		// Reload project button
+		jMainPanel.find("button.reloadProject").click(function(_) {
+			if( project != null && project.filePath != null ) {
+				// Go to Home page, then reload project after a short delay
+				App.ME.loadPage(() -> new page.Home());
+				js.Browser.window.setTimeout(function() {
+					App.ME.loadProject(project.filePath.full);
+				}, 200);
+			}
+		});
+
 		jMainPanel.find("button.world").click( function(_) {
 			App.ME.executeAppCommand(C_ToggleWorldMode);
 		});
@@ -608,6 +619,7 @@ class Editor extends Page {
 			case C_ToggleTileRandomMode:
 			case C_SaveTileSelection:
 			case C_LoadTileSelection:
+			case C_ReloadProject:
 
 			case C_Back:
 				if( hasInputFocus() ) {

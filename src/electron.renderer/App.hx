@@ -665,6 +665,18 @@ class App extends dn.Process {
 					N.success("Press F11 to leave fullscreen");
 				ET.setFullScreen(!isFullScreen);
 				updateBodyClasses();
+
+			case C_ReloadProject:
+				// If an editor is open, navigate to Home then reload the current project.
+				if( hasPage() && Std.is(curPageProcess, page.Editor) ) {
+					var ed:page.Editor = cast curPageProcess;
+					if( ed.project != null && ed.project.filePath != null ) {
+						loadPage( ()->new page.Home() );
+						js.Browser.window.setTimeout(function() {
+							loadProject(ed.project.filePath.full);
+						}, 100);
+					}
+				}
 		}
 
 		// Propagate to current page
