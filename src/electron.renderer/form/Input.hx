@@ -155,6 +155,11 @@ class Input<T> {
 							jInput.val( v );
 							jInput.val( Std.string( parseInputValue() ) ); // Force clamping
 							jInput.addClass("editing");
+							// Only refresh when editing an entity (entity instance editor open)
+							if( ui.EntityInstanceEditor.isOpen() ) {
+								onInputChange(true);
+								Editor.ME.invalidateResizeTool();
+							}
 						}
 					})
 					.on("mouseup.slider", function(ev) {
