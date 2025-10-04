@@ -22,7 +22,7 @@
 --cmd haxelib git heaps-aseprite https://github.com/AustinEast/heaps-aseprite.git --always
 
 --next
---cmd haxelib git deepnightLibs https://github.com/deepnight/deepnightLibs.git --always
+--cmd haxelib git deepnightLibs https://github.com/deepnight/deepnightLibs.git 25642bb5d262e2db3aeccbfadb4b06a5b98128a1 --always
 
 --next
---cmd haxelib git ldtk-haxe-api https://github.com/deepnight/ldtk-haxe-api.git --always
+--cmd haxelib git ldtk-haxe-api https://github.com/deepnight/ldtk-haxe-api.git ef04d3e1cc0e97b2f54af7921f268d1b494e7dca --always
